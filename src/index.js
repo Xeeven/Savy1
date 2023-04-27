@@ -44,7 +44,7 @@ client.on('messageCreate', (message) => {
     if(message.content === msgPrefixed("init")){
         message.reply("Initiation has started...")
         let i;
-        for (let chanel of client.channels.cache) {
+        for (let chanel of message.guild.channels.cache) {
             // console.log(`i hope ids: ${+chanel[0]}`)
             // client.cache.channels.find(channel => channel.name === 'channel-name').delete()
             // if(client.)
@@ -53,27 +53,34 @@ client.on('messageCreate', (message) => {
                 // });
             // message.channel.delete()
             
-            console.log(chanel);/*return;*/
-            // message.guild.channels.cache.find(channel => {
+            console.log(chanel[1],"\n-------------------------------------------------\n",chanel[1].id,"\n-------------------------------------------------\n", typeof chanel,"\n-------------------------------------------------\n", chanel[0] ,"\n-------------------------------------------------\n", message.channel,"\n-------------------------------------------------\n", message.channel.id,"\n-------------------------------------------------\n");/*return;*/
+            // /*console.log(*/message.guild.channels.cache.find(channel => channel.id === chanel[0]/*{
             //     if(channel.id !== undefined){
             //         if(channel.id === chanel[0]){
             //             return true
             //         }
             //     }
             //     return false;
-            // }).delete();
+            // }*/).delete();
 
-
-            
+            // const fetchedChannel = message.guild.channels.cache.find(channel => channel.id === chanel[0]);
+            const fetchedChannel = message.guild.channels.cache.get(chanel[0]);
             try {
-                message.channel.parent.delete()
+                chanel[1].delete();
             } catch (error) {
-                message.reply("Nie działa :C")
+                console.log(error)
             }
+            
+            // try {
+            //     message.channel.parent.delete()
+            // } catch (error) {
+            //     message.reply("Nie działa :C")
+            // }
             // return;
             // message.channel.delete()
             // message.channels.delete()
         }
+        return;
         (async () => {
             // let memberColl = message.guild.members.find( member => member.id !== undefined);
             let fmem = await message.guild.members.fetch()
